@@ -11,7 +11,12 @@
     "linebreak-style": "off",
     "object-curly-spacing": "off",
     "indent": "off",
-    "require-jsdoc": "off"
+    "require-jsdoc": "off",
+    "comma-dangle": "off",
+    "max-len": "off",
+    "operator-linebreak": "off",
+    "no-debugger": "off",
+    "arrow-parens": "off"
   },
   "extends": ["eslint:recommended", "google"]
 }
