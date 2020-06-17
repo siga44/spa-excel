@@ -1,4 +1,4 @@
-import { $ } from "@core/dom"
+import {$} from "@core/dom"
 
 export class Excel {
   // getting transfered selector and params from index.js

@@ -3,11 +3,10 @@ import {capitalize} from '@core/utils'
 export class DomListener {
   constructor($root, listeners = []) {
     if (!$root) {
-      throw new Error('~~No root provided for DomListener~~')
-    } else {
-      this.$root = $root
-      this.listeners = listeners
+      throw new Error('~~No $root provided for DomListener~~')
     }
+    this.$root = $root
+    this.listeners = listeners
   }
 
   initDomListeners() {
@@ -16,7 +15,7 @@ export class DomListener {
       if (!this[method]) {
         throw new Error(`~~Method ${method} is not implemented in ${this.name} Component~~`)
       }
-      this.method = this[method].bind(this)
+      this[method] = this[method].bind(this)
       this.$root.on(listener, this[method])
     })
   }
