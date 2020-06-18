@@ -18,6 +18,7 @@
   flex-direction: row;
   min-height: 2rem;
   height: $row-height;
+  transition: height .133s ease;
   &__info {
     position: relative;
     font-size: 1.4rem;
@@ -35,15 +36,17 @@
     display: flex;
   }
   &__resize {
+    z-index: 10;
     position: absolute;
     height: 4px;
-    width: 100%;
+    right: 0;
+    left: 0;
     bottom: 0;
     opacity: 0;
     background-color: $darkGreen;
     &:hover {
-      opacity: 1;
-      cursor: row-resize;
+      opacity: 1!important;
+      cursor: n-resize;
     }
   }
 }
@@ -61,17 +64,19 @@
   border-top: none;
   border-left: none;
   height: 100%;
+  transition: width .133s ease;
   &__resize {
+    z-index: 10;
     position: absolute;
     width: 4px;
-    top: 0;
     right: 0;
     bottom: 0;
+    top: 0;
     opacity: 0;
     background-color: $darkGreen;
     &:hover {
-      opacity: 1;
-      cursor: col-resize;
+      opacity: 1!important;
+      cursor: e-resize;
     }
   }
 }
@@ -86,6 +91,8 @@
   border-right: 1px solid $gray;
   white-space: nowrap;
   outline: none;
+  transition-property: width, height;
+  transition: .133s ease;
   &.selected {
     border: none;
     outline: 2px solid $darkGreen;
