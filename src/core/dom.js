@@ -13,18 +13,17 @@ class Dom {
     return this.$el.outerHTML.trim()
   }
 
+  clear() {
+    this.html('')
+    return this
+  }
+
   on(eventType, callback) {
-    // "on" method is a same as an addEventListener
     this.$el.addEventListener(eventType, callback)
   }
 
   off(eventType, callback) {
     this.$el.removeEventListener(eventType, callback)
-  }
-
-  clear() {
-    this.html('')
-    return this
   }
 
   append(node) {
@@ -39,20 +38,36 @@ class Dom {
     }
     return this
   }
+
+  get data() {
+    return this.$el.dataset
+  }
+
+  closest(selector) {
+    return $(this.$el.closest(selector))
+  }
+
+  getCoords() {
+    return this.$el.getBoundingClientRect()
+  }
+
+  findAll(selector) {
+    return this.$el.querySelectorAll(selector)
+  }
+
+  css(styles={}) {
+    Object.keys(styles).forEach(key => this.$el.style[key] = styles[key])
+  }
 }
 
-// event.target
 export function $(selector) {
   return new Dom(selector)
 }
 
-// "create" method for Class "$"
 $.create = (tagName, classes = '') => {
   const el = document.createElement(tagName)
   if (classes) {
-    // Getting a class name (f.e. class="excel__table") and adding it into classList of an element
     el.classList.add(classes)
   }
-  // Transfering el in $ to assign correct value
   return $(el)
 }
