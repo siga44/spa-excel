@@ -1,7 +1,8 @@
 import {ExcelComponent} from '@core/ExcelComponent'
+import {$} from '@core/dom'
 import {createTable} from './table.template'
 import {resizeHandler} from './table.resize'
-import {shouldResize} from './table.functions'
+import {shouldResize, isCell, isShift, matrix} from './table.functions'
 import {TableSelection} from './TableSelection'
 
 export class Table extends ExcelComponent {
@@ -15,7 +16,7 @@ export class Table extends ExcelComponent {
   }
 
   toHTML() {
-    return createTable(20)
+    return createTable(255)
   }
 
   prepare() {}
@@ -29,7 +30,16 @@ export class Table extends ExcelComponent {
   }
 
   onMousedown(event) {
-    const target = shouldResize(event)
-    if (target) resizeHandler(this.$root, event, target)
+    if (shouldResize(event)) {
+      resizeHandler(this.$root, event, shouldResize(event))
+    } else if (isCell(event)) {
+      const $target = $(event.target)
+      if (isShift(event)) {
+        const $cells = matrix($target, this.selection.current).map(id => this.$root.find(`[data-id="${id}"]`))
+        this.selection.selectGroup($cells)
+      } else {
+        this.selection.select($target)
+      }
+    }
   }
 }
